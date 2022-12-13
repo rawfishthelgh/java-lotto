@@ -10,7 +10,7 @@ public class ResultView {
   private static final int MIN_INDEX = 3;
   private static final int MAX_INDEX = 6;
 
-  static Map<Integer, Integer> prizePerCount = new HashMap<>();
+  private static final Map<Integer, Integer> prizePerCount = new HashMap<>();
 
   public static void printLottoAmount(int amount) {
     System.out.println(amount + "개를 구매했습니다");
@@ -19,6 +19,7 @@ public class ResultView {
   public static void printMyLotto(Lottos lottos) {
     for (Lotto lotto : lottos.lottos) {
       System.out.println(lotto.lotto.toString());
+
     }
   }
 
