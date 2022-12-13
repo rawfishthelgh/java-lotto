@@ -2,6 +2,7 @@ package domain.lotto;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class LottoNumber {
 
@@ -11,8 +12,9 @@ public class LottoNumber {
   public static final List<Integer> lottoNumbers = new ArrayList<>();
 
   static {
-    for (int i = MINIMUM_NUMBER; i <= MAXIMUM_NUMBER; i++) {
-      lottoNumbers.add(i);
-    }
+    IntStream.rangeClosed(MINIMUM_NUMBER,MAXIMUM_NUMBER)
+        .forEach(
+            i -> lottoNumbers.add(i)
+        );
   }
 }
