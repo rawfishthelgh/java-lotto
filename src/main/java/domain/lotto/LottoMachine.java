@@ -2,6 +2,7 @@ package domain.lotto;
 
 import domain.prizeBoard.PrizeBoardMapping;
 import domain.strategy.GenerateLottoNum;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -37,12 +38,21 @@ public class LottoMachine {
   public Map<Integer, Integer> checkPrizes(List<Integer> winningNums, Lottos lottos) {
     Map<Integer, Integer> prizeMap = new HashMap<>();
     initPrizeMap(prizeMap);
-    lottos.lottos.stream().map(lotto -> lotto.lotto.retainAll(winningNums))
-        .collect(Collectors.toList());
+    reduceOverlap(winningNums, lottos);
+    addPrizeCount(lottos, prizeMap);
+    return prizeMap;
+  }
+
+  private static void addPrizeCount(Lottos lottos, Map<Integer, Integer> prizeMap) {
     lottos.lottos.stream()
         .map(lotto -> prizeMap.put(lotto.lotto.size(), prizeMap.get(lotto.lotto.size()) + 1))
         .collect(Collectors.toList());
-    return prizeMap;
+  }
+
+  private static void reduceOverlap(List<Integer> winningNums, Lottos lottos) {
+    lottos.lottos.stream().map(lotto -> lotto.lotto.retainAll(winningNums))
+        .collect(Collectors.toList());
+
   }
 
   private Map<Integer, Integer> initPrizeMap(Map<Integer, Integer> prizeMap) {
